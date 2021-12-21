@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -84,7 +85,7 @@ public class ClassService implements IClassService {
 	public ClassDTO save(ClassDTO dto) {
 		SubjectEntity subjectclass = subjectRepository.findOne(dto.getSubjectId());
 		ContentEntity contentclass = contentRepository.findOne(dto.getContentId());
-		List<UserEntity> userclass = userRepository.findAllByUsernameAndStatus(dto.getUsername(),
+		Set<UserEntity> userclass = userRepository.findAllByUsernameAndStatus(dto.getUsername(),
 				SystemConstant.ACTIVE_STATUS);
 		ClassEntity classEntity = new ClassEntity();
 		if (dto.getClassId() != null) {

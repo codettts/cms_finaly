@@ -3,7 +3,9 @@ package com.btec.entity;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +15,13 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.btec.validator.Phone;
 
 @Entity
 @Table(name = "user")
@@ -24,37 +33,55 @@ public class UserEntity extends BaseEntity {
 	private String password;
 
 	@Column(name = "phoneNumber")
+	@Phone(message = "Phone Number is invalid")
 	private String phoneNumber;
 
-	@Column(name = "fullName")
+	@Column(name = "fullName") @NotNull(message = "is required")
 	private String fullName;
-
-	@Column(name = "email")
-	private String email;
-
+	
 	@Column(name = "dob")
+	@DateTimeFormat(pattern="dd/MM/yyyy") @NotNull(message = "is required")
+	@Past
 	private Date dob;
 
+	@Column(name = "email") @Email(message = "Invalid email! Please enter valid email") @NotNull(message = "is required")
+	private String email;
+	
+	@Column(name = "gender", columnDefinition="char(1)")
+	@NotNull
+	private String gender;
+	
+	@Column(name = "country")
+	private String country;
+	
+	@Column(name = "avatar")
+	private String avatar;
+
 	@Column(name = "status")
+	@NotNull
 	private Integer status;
 
 	@ManyToMany
 	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "username"), inverseJoinColumns = @JoinColumn(name = "roleId"))
-	private List<RoleEntity> roles = new ArrayList<>();
+	private Set<RoleEntity> roles = new HashSet<>();
 	
 	@ManyToMany
 	@JoinTable(name = "user_class", joinColumns = @JoinColumn(name = "username"), inverseJoinColumns = @JoinColumn(name = "classId"))
-	private List<ClassEntity> classuser = new ArrayList<>();
+	private Set<ClassEntity> classuser = new HashSet<>();
 	
 	@OneToMany(mappedBy = "user")
 	private List<SubasmEntity> subasmuser = new ArrayList<>();
 		
-	public List<ClassEntity> getClassuser() {
+	public Set<ClassEntity> getClassuser() {
 		return classuser;
 	}
 
-	public void setClassuser(List<ClassEntity> classuser) {
+	public void setClassuser(Set<ClassEntity> classuser) {
 		this.classuser = classuser;
+	}
+
+	public void setRoles(Set<RoleEntity> roles) {
+		this.roles = roles;
 	}
 
 	public List<SubasmEntity> getSubasmuser() {
@@ -121,12 +148,33 @@ public class UserEntity extends BaseEntity {
 		this.status = status;
 	}
 
-	public List<RoleEntity> getRoles() {
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+
+	public Set<RoleEntity> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(List<RoleEntity> roles) {
-		this.roles = roles;
-	}
-
+	
 }

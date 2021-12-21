@@ -1,8 +1,11 @@
 package com.btec.entity;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,6 +17,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
 
 @Entity
 @Table(name = "class")
@@ -37,16 +42,17 @@ public class ClassEntity extends BaseEntity {
     private ContentEntity content;
 	
 	@ManyToMany(mappedBy = "classuser")
-    private List<UserEntity> userclass = new ArrayList<>();
+	@Cascade(value = {org.hibernate.annotations.CascadeType.PERSIST, org.hibernate.annotations.CascadeType.MERGE})
+    private Set<UserEntity> userclass = new HashSet<>();
 	
 	@OneToMany(mappedBy = "classs")
 	private List<AsmEntity> asms = new ArrayList<>();
 
-	public List<UserEntity> getUserclass() {
+	public Set<UserEntity> getUserclass() {
 		return userclass;
 	}
 
-	public void setUserclass(List<UserEntity> userclass) {
+	public void setUserclass(Set<UserEntity> userclass) {
 		this.userclass = userclass;
 	}
 
