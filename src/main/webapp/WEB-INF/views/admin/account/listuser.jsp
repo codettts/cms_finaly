@@ -36,7 +36,10 @@
 							<tr>
 								<th>UserName</th>
 								<th>FullName</th>
-								<th>Password</th>
+								<th>Created By</th>
+								<th>Created Date</th>
+								<th>Modified By</th>
+								<th>Modified Date</th>
 								<th>DOB</th>
 								<th>Email</th>
 								<th>Phone</th>
@@ -48,7 +51,10 @@
 								<tr>
 									<td>${item.username}</td>
 									<td>${item.fullName}</td>
-									<td>${item.password}</td>
+									<td>${item.modifiedBy}</td>
+									<td>${item.modifiedDate}</td>
+									<td>${item.createdBy}</td>
+									<td>${item.createdDate}</td>
 									<td>${item.dob}</td>
 									<td>${item.email}</td>
 									<td>${item.phoneNumber}</td>

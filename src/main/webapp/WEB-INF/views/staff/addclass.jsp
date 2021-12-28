@@ -16,9 +16,7 @@
 			<ul class="breadcrumb">
 				<li><a href="${homeURL}">Home</a></li>
 				<li><a href="${staffmanageclassURL}">Manage Class</a></li>
-				<c:forEach var="classlist" items="${model.listResult}">
-				<li>${classlist.className}</li>
-				</c:forEach>
+				<li>BHAF-1911-2.2</li>
 			</ul>
 		</div>
 		<div id="main-content">
@@ -43,8 +41,6 @@
 					<form:form role="form" id="formAddClass" modelAttribute="classmodel">
 						<h4>Class Name</h4>
 						<form:input cssClass="input-info" path="className"/>
-						<h4>Password</h4>
-						<form:input cssClass="input-info" path="password"/>
 						<h4>Select Subject</h4>
 						<form:select path="subjectId" cssClass="input-info">
 							<form:option value="" label="---Pick a Subject---" />
